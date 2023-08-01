@@ -5,6 +5,7 @@ const printGameLayout = (() => {
   return { gameBoard };
 })();
 
+
 const createPlayers = (() => {
   const players = [
     {
@@ -64,7 +65,7 @@ const divElements = document.querySelectorAll('.gameBox');
   });
 })(createPlayers.players, printGameLayout.gameBoard);
 
-let gameResult = ''
+let gameResult = '';
 function checkGame(gameBoard) {
 
   let gameBoardArray = gameBoard.gameBoardArray;
@@ -98,3 +99,13 @@ function checkGame(gameBoard) {
     gameResult = 'no one  won ';
   }
 }
+
+(function restGame(gameBoard){
+  const restBtn = document.querySelector('.restart');
+  restBtn.addEventListener('click', ()=>{
+    gameBoard.gameBoardArray = ['', '', '', '', '', '', '', '', ''];
+    divElements.forEach((div)=>{
+      div.textContent = ''
+    })
+  })
+})(printGameLayout.gameBoard);
