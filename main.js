@@ -6,19 +6,41 @@ const printGameLayout = (() => {
 })();
 
 
+
+
+ const getPlayersName = (()=> {
+   const form = document.querySelector('form')
+   const submitBtn = document.querySelector('.submit-btn')
+   submitBtn.addEventListener('click', (event)=>{
+    event.preventDefault()
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const playerOneName =  document.querySelector('#first-player').value
+    const playerTwoName = document.querySelector('#second-player').value
+    const playerOne = createPlayers.createPlayer(playerOneName,'X');
+    const playerTwo = createPlayers.createPlayer(playerTwoName,'O')
+    form.reset()
+    form.style.display= 'none'
+   })
+ })() 
+
+
+
 const createPlayers = (() => {
-  const players = [
-    {
-      name: 'playerOneName',
-      symbol: 'X',
-    },
-    {
-      name: 'playerTwoName',
-      symbol: 'O',
-    },
-  ];
-  return { players };
+const players = [];
+
+  const createPlayer = (name, symbol )=>{
+    const player  = {name, symbol};
+    players.push(player);
+    return player;
+  };
+  return { createPlayer, players}
 })();
+
+
+
 
 (function render(gameBoard) {
   const container = document.querySelector('.container');
@@ -79,7 +101,7 @@ function checkGame(gameBoard) {
       
       (gameBoardArray[2] === 'X' && gameBoardArray[4] === 'X' && gameBoardArray[6] === 'X')||
       (gameBoardArray[0] === 'X' && gameBoardArray[4] === 'X' && gameBoardArray[8] === 'X')) {
-      console.log('player X Won');
+      console.log(`${createPlayers.players[0].name} Won`);
       gameResult = 'X won ';
   } else if(
       (gameBoardArray[0] === 'O' && gameBoardArray[1] === 'O' && gameBoardArray[2] === 'O')||
@@ -92,7 +114,7 @@ function checkGame(gameBoard) {
       
       (gameBoardArray[2] === 'O' && gameBoardArray[4] === 'O' && gameBoardArray[6] === 'O')||
       (gameBoardArray[0] === 'O' && gameBoardArray[4] === 'O' && gameBoardArray[8] === 'O')) {
-      console.log('player O Won');
+      console.log(`${createPlayers.players[1].name} Won`);
       gameResult = 'O won ';
   } else if (!gameBoardArray.includes('')){
     console.log('Tie')
@@ -101,7 +123,7 @@ function checkGame(gameBoard) {
 }
 
 (function restGame(gameBoard){
-  const restBtn = document.querySelector('.restart');
+  const restBtn = document.querySelector('.restart-btn');
   restBtn.addEventListener('click', ()=>{
     gameBoard.gameBoardArray = ['', '', '', '', '', '', '', '', ''];
     divElements.forEach((div)=>{
