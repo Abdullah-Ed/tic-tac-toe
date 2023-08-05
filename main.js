@@ -6,8 +6,6 @@ const printGameLayout = (() => {
 })();
 
 
-
-
  const getPlayersName = (()=> {
    const form = document.querySelector('form')
    const submitBtn = document.querySelector('.submit-btn')
@@ -23,6 +21,8 @@ const printGameLayout = (() => {
     const playerTwo = createPlayers.createPlayer(playerTwoName,'O')
     form.reset()
     form.style.display= 'none'
+    restBtn.style.transform = 'scale(1)';
+    container.style.transform = 'scale(1)';
    })
  })() 
 
@@ -40,10 +40,9 @@ const players = [];
 })();
 
 
-
+const container = document.querySelector('.container');
 
 (function render(gameBoard) {
-  const container = document.querySelector('.container');
   let arrayLength = gameBoard.gameBoardArray.length;
   for (let i = 0; i < arrayLength; i++) {
     const div = document.createElement('div');
@@ -82,14 +81,14 @@ const divElements = document.querySelectorAll('.gameBox');
         }
       }
  
-      checkGame(gameBoard); 
+      checkGame(gameBoard,resultDisplay); 
     });
   });
 })(createPlayers.players, printGameLayout.gameBoard);
 
 let gameResult = '';
-function checkGame(gameBoard) {
-
+function checkGame(gameBoard,resultDisplay) {
+  
   let gameBoardArray = gameBoard.gameBoardArray;
   if ((gameBoardArray[0] === 'X' && gameBoardArray[1] === 'X' && gameBoardArray[2] === 'X')||
       (gameBoardArray[3] === 'X' && gameBoardArray[4] === 'X' && gameBoardArray[5] === 'X')||
@@ -101,7 +100,8 @@ function checkGame(gameBoard) {
       
       (gameBoardArray[2] === 'X' && gameBoardArray[4] === 'X' && gameBoardArray[6] === 'X')||
       (gameBoardArray[0] === 'X' && gameBoardArray[4] === 'X' && gameBoardArray[8] === 'X')) {
-      console.log(`${createPlayers.players[0].name} Won`);
+      resultDisplay.textContent = `${createPlayers.players[0].name} Won the game`;
+      resultDisplay.style.transform = 'scale(1)'
       gameResult = 'X won ';
   } else if(
       (gameBoardArray[0] === 'O' && gameBoardArray[1] === 'O' && gameBoardArray[2] === 'O')||
@@ -114,20 +114,32 @@ function checkGame(gameBoard) {
       
       (gameBoardArray[2] === 'O' && gameBoardArray[4] === 'O' && gameBoardArray[6] === 'O')||
       (gameBoardArray[0] === 'O' && gameBoardArray[4] === 'O' && gameBoardArray[8] === 'O')) {
-      console.log(`${createPlayers.players[1].name} Won`);
+        resultDisplay.textContent = `${createPlayers.players[1].name} Won the game`;
+        resultDisplay.style.transform = 'scale(1)'
       gameResult = 'O won ';
   } else if (!gameBoardArray.includes('')){
-    console.log('Tie')
+    resultDisplay.textContent = `Tie`;
+    resultDisplay.style.transform = 'scale(1)'
     gameResult = 'no one  won ';
   }
+  
 }
 
-(function restGame(gameBoard){
-  const restBtn = document.querySelector('.restart-btn');
+const restBtn = document.querySelector('.restart-btn');
+const restGameResult = (function restGame(gameBoard){
+  const resultDisplay = document.querySelector('.game-result-display');
+  
   restBtn.addEventListener('click', ()=>{
     gameBoard.gameBoardArray = ['', '', '', '', '', '', '', '', ''];
+    resultDisplay.style.transform = 'scale(0)'
+    resultDisplay.style.transition = '0.3'
+    resultDisplay.textContent = ''
+    gameResult = ''
     divElements.forEach((div)=>{
       div.textContent = ''
     })
   })
+  return{getResultDisplay: () => resultDisplay,}
 })(printGameLayout.gameBoard);
+
+const resultDisplay = restGameResult.getResultDisplay();
