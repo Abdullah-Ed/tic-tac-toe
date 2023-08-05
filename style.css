@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
+:root{
+ --font-color:#251414;
+}
+
+body{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Manrope', sans-serif; ;
+  background: #9796f0;  
+  background: -webkit-linear-gradient(to right, #fbc7d4, #9796f0);  
+  background: linear-gradient(to right, #fbc7d4, #9796f0);
+
+}
+
+
+h1{
+  display: grid;
+  justify-content: center;
+  flex-direction: column;
+  align-items:center;
+
+}
+
+h1{
+  padding-top: 50px;
+  font-size: 5rem;
+  font-family:'Libre Baskerville', serif,'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-image: linear-gradient(90deg, red, blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form> div{
+  color: var(--font-color);
+  width: 300px;
+  height:300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form> div> div{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+
+input,
+label{
+  font-size: 1.2rem;
+}
+
+input{
+  appearance: none;
+  border: none;
+  width: 200px;
+  outline: none;
+  padding: 0.3em;
+}
+
+input:focus-visible{
+  border: none;
+}
+
+input:focus:invalid{
+  border:1px solid #e71010;  
+}
+
+input:focus:valid{
+  border: 1px #6f6fc5 solid;
+}
+
+button{
+  margin-top: 15px;
+  font-size: 1.2rem;
+  padding: .3em 2em;
+  color: var(--font-color);
+  background: transparent;
+  border: 3px black dashed;
+  border-radius: 30px;
+  transition:  0.3s;
+}
+
+button:hover{
+  border: 3px black dashed;
+  border-radius: 8px;
+  box-shadow: 5px 5px 0 black;
+  translate: 4px 4px;
+}
+
+button:active{
+  box-shadow: 0 0 0 ;
+  translate: 0px 0px;
+  border: 3px black dashed;
+}
+
+
+.game-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.container{
+  display: grid;
+  grid-template:repeat(3,130px)/repeat(3,130px) ;
+  transform: scale(0);
+  transition:  0.3s;
+}
+
+.container > div{
+  font-size: 5rem;
+  cursor: pointer;
+  
+  border: none;
+  border-radius: 0px;
+  border-bottom: 3px solid #456883;
+  border-right: 3px solid #456883;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+.gameBox:nth-child(3n){
+  border-right: none;
+}
+
+.gameBox:nth-last-child(-n + 3){
+  border-bottom: none;
+}
+
+.restart-btn{
+  transform: scale(0);
+}
+
+
+span {
+  background-image: linear-gradient(90deg, rgb(223, 100, 100), rgb(3, 3, 53));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 3rem;
+  margin-bottom: 50px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  transition: 0.3s;
+  transform: scale(0);
+}
